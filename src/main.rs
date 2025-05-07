@@ -1,33 +1,43 @@
 use std::io;
-use rand::Rng;
-use std::cmp::Ordering;
+
+fn read_number() -> i32{
+    let mut num = String::new();
+    io::stdin().read_line(&mut num).expect("Fail!");
+    let num: i32 = num.trim().parse(). expect("Invalid Number");
+    num
+}
+
+fn sum(x: i32, y: i32) -> i32{
+    x + y
+}
+
+fn sub(x: i32, y: i32) -> i32{
+    x - y
+}
 
 fn main (){
-    println!("Guess the number!");
-
-    let num = rand::thread_rng().gen_range(1..=100);
-
-    loop {
-        println!("Guess a number.");
-
-        let mut guess = String::new();
-
-        io::stdin().read_line(&mut guess).expect("Error readind a line");
-
-        let guess: u32 = match guess.trim().parse(){
-            Ok(num) => num,
-            Err(_) => continue,
-        };
-
-        println!("Your guess: {}", guess);
-
-        match guess.cmp(&num){
-            Ordering::Less => println!("But it's too small"),
-            Ordering::Greater => println!("But it's too big"),
-            Ordering::Equal => {
-                println!("You win!");
-                break;
-            }
+    println!("==Calculator==");
+    loop{
+        println!("What you wanna do?");
+        println!("0 - Exit\n1 - Sum\n2 - Sub");
+        let option : i32 = read_number();
+        if option == 0{
+            break;
+        }
+        else if option == 1{
+            println!("Enter the two numbers.");
+            let x = read_number();
+            let y = read_number();
+            println!("Your Sum = {}.", sum(x, y));
+        }
+        else if option == 2{
+            println!("Enter the two numbers.");
+            let x = read_number();
+            let y = read_number();
+            println!("Your Sub = {}.", sub(x, y));
+        }
+        else{
+            println!("Press a valid option!")
         }
     }
     
